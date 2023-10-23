@@ -19,7 +19,7 @@ def query():
     input_query = request.args.get("q")
     process_query(input_query)
 
-    
+
 def process_query(input_query):
 
     if input_query == "dinosaurs":
