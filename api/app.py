@@ -17,8 +17,8 @@ def submit():
 @app.route("/query", methods=["GET"])
 def process_query():
     input_query = request.args.get("q")
-    
+
     if input_query:
         return f"Q = {input_query}"
     else:
-        return f"Nothing"
+        return "Nothing"
