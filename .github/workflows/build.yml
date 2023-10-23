@@ -16,7 +16,6 @@ jobs:
         run: flake8 api/
   
   pytest:
-    needs: python-formatting
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
