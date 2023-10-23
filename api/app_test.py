@@ -8,3 +8,7 @@ million years ago"
 
 def test_does_not_know_about_asteroids():
     assert process_query("asteroids") == "Unknown"
+
+
+def test_invalid_input():
+    assert process_query("abc") == "Invalid input"
