@@ -14,6 +14,24 @@ jobs:
         run: pip install flake8
       - name: Run flake8
         run: flake8 api/
+  
+  pytest:
+      runs-on: ubuntu-latest
+
+      steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.9
+
+      - name: Install requirements
+        run: pip install -r requirements.txt
+
+      - name: Run Pytest
+        run: pytest api/*.py
 
   deploy-to-vercel:
     needs: python-formatting
@@ -28,21 +46,3 @@ jobs:
           vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
           vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
           vercel-args: '--prod'
-
-  pytest:
-      runs-on: ubuntu-latest
-
-      steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-
-      - name: Setup Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: 3.9
-
-      - name: Install pytest
-        run: pip install pytest
-
-      - name: Run Pytest
-        run: pytest api/*.py
