@@ -16,6 +16,7 @@ jobs:
         run: flake8 api/
   
   pytest:
+    needs: python-formatting
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -33,9 +34,7 @@ jobs:
         run: pytest api/*.py
 
   deploy-to-vercel:
-    needs:
-      - python-formatting
-      - pytest
+    needs: pytest
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
