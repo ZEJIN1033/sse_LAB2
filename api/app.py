@@ -40,6 +40,10 @@ def process_query(input_query):
     if "multiplied" in input_query:
         result = mul_numbers(input_query)
         return result
+    
+    if input_query.startswith("Which of the following numbers are primes"):
+        result = find_primes(input_query)
+        return result
 
 def find_largest_number(query):
     match = re.search(r'(\d+),\s*(\d+),\s*(\d+)', query)
@@ -91,3 +95,20 @@ def mul_numbers(query):
         return str(result)
     else:
         return None
+    
+def is_prime(number):
+    if number < 2:
+        return False 
+    for i in range(2, int(number ** 0.5) + 1): 
+        if number % i == 0: 
+            return False 
+        return True 
+
+def find_primes(query): # 使用正则表达式匹配数字部分 
+    match = re.search(r'Which of the following numbers are primes: (.+)', query)
+    if match: 
+        numbers_part = match.group(1)
+        numbers = [int(num) for num in re.findall(r'\d+', numbers_part)] 
+        prime_numbers = [num for num in numbers if is_prime(num)] 
+        return str(prime_numbers)
+   
