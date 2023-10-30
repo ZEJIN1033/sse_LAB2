@@ -28,8 +28,8 @@ def process_query(input_query):
     match = re.match(r'What is (\d+) plus (\d+)\?', input_query)
 
     if match:
-        num1 = float(match.group(1))
-        num2 = float(match.group(2))
+        num1 = int(match.group(1))
+        num2 = int(match.group(2))
         result = num1 + num2
         return result
 
