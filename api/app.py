@@ -15,7 +15,7 @@ def submit():
     input_age = request.form.get("age")
     input_gender = request.form.get("gender")
     return render_template("hello.html", name=input_name, age=input_age, 
-                           gender=input_gender)
+gender=input_gender)
 
 
 @app.route("/query", methods=["GET"])
@@ -27,7 +27,7 @@ def query():
 def process_query(input_query):
     if input_query.startswith("What is your name"):
         return "superteam"
-    
+
     if "dinosaurs" in input_query:
         return "Dinosaurs ruled the Earth 200 \
 million years ago"
@@ -54,7 +54,6 @@ million years ago"
     if input_query.startswith("Which of the following numbers are primes"):
         result = find_primes(input_query)
         return result
-
 
 
 def find_largest_number(query):
