@@ -19,7 +19,7 @@ def test_team_name():
 
 
 def test_add():
-    assert process_query("What is 45 plus 45?") == "90"
+    assert process_query("What is 43 plus 49?") == "92"
 
 
 def test_compare():
