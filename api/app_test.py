@@ -27,9 +27,9 @@ import app  # Import your Flask application
 import pytest
 
 @pytest.mark.parametrize("input_query, expected_result", [
-    ("What is 5 plus 3?", 8.0),
-    ("What is 10 plus 15?", 25.0),
-    ("What is 100 plus 200?", 300.0) # Test an invalid query
+    ("What is 5 plus 3?", 8),
+    ("What is 10 plus 15?", 25),
+    ("What is 100 plus 200?", 300) # Test an invalid query
 ])
 def test_process_query(input_query, expected_result):
     result = app.process_query(input_query)
