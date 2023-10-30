@@ -14,6 +14,5 @@ def test_invalid_input():
     assert process_query("abc") == "Invalid input"
 
 
-
 def test_team_name():
     assert process_query("What is your name?") == "apex legend"
