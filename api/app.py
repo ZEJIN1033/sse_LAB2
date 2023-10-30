@@ -25,43 +25,26 @@ def query():
 
 
 def process_query(input_query):
-    # match = re.match(r'What is (\d+) plus (\d+)\?', query)
+    match = re.match(r'What is (\d+) plus (\d+)\?', input_query)
 
-    # if match:
-    #     num1 = float(match.group(1))
-    #     num2 = float(match.group(2))
-    #     result = num1 + num2
-    # else:
-    #     result = "Invalid query format"  # Provide a default value for cases with no match
-
-    # return result
-
+    if match:
+        num1 = float(match.group(1))
+        num2 = float(match.group(2))
+        result = num1 + num2
+        return render_template("result.html", result=result)
 
     question, numbers = input_query.split(':')
-    if question == "Which of the following numbers is the largest":
-        return find_largest(input_query)
+    if question.strip() == "Which of the following numbers is the largest":
+        return render_template("result.html", result=find_largest(numbers))
     else:
         return "Invalid input"
 
-    # if input_query == "dinosaurs":
-    #     return "Dinosaurs ruled the Earth 200 million years ago"
-    # elif input_query == "asteroids":
-    #     return "Unknown"
-    # elif input_query == "What is your name?":
-    #     return "apex legend"
-    # else:
-    #     return "Invalid input"
-    
+def find_largest(numbers):
+    number_list = numbers.split('.')
+    number_list = [int(num.strip()) for num in number_list]
 
-def find_largest(query):
-    question, numbers =query.split(':')
-
-    number = numbers.split('.')
-
-    A = int(number[0].strip())
-    B = int(number[1].strip())
-    C = int(number[2].strip())
-
-    largest = max(A,B,C)
-
-    return largest
+    if len(number_list) > 0:
+        largest = max(number_list)
+        return largest
+    else:
+        return "No numbers provided"
