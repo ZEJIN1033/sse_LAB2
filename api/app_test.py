@@ -20,3 +20,8 @@ def test_team_name():
 
 def test_add():
     assert process_query("What is 45 plus 45?") == "90"
+
+
+def test_compare():
+    assert process_query("Which of the following numbers \
+is the largest:33,50,65?") == "65"
