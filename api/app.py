@@ -26,9 +26,6 @@ def query():
 
 def process_query(query):
 
-    if query == "What is your name?":
-        return "apex legend"
-
     match = re.match(r'What is (\d+) plus (\d+)\?', query)
 
     if match:

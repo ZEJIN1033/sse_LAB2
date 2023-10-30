@@ -1,4 +1,4 @@
-from app import process_query
+# from app import process_query
 
 
 # def test_knows_about_dinosaurs():
@@ -14,8 +14,8 @@ from app import process_query
 #     assert process_query("abc") == "Invalid input"
 
 
-def test_team_name():
-    assert process_query("What is your name?") == "apex legend"
+# def test_team_name():
+#     assert process_query("What is your name?") == "apex legend"
 
 
 # def test_compare():
