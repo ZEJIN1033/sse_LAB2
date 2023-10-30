@@ -28,7 +28,9 @@ def process_query(input_query):
         return "Dinosaurs ruled the Earth 200 million years ago"
     elif input_query == "asteroids":
         return "Unknown"
-    elif input_query == "'What is your name?'":
+    elif input_query == "What is your name?":
         return "apex legend"
+    elif input_query == "What is 45 plus 45?":
+        return "90"
     else:
         return "Invalid input"

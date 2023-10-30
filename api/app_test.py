@@ -15,4 +15,8 @@ def test_invalid_input():
 
 
 def test_team_name():
-    assert process_query("'What is your name?'") == "apex legend"
+    assert process_query("What is your name?") == "apex legend"
+
+
+def test_add():
+    assert process_query("What is 45 plus 45?") == "90"
