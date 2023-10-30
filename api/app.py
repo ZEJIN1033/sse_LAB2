@@ -28,18 +28,19 @@ def process_query(input_query):
     match = re.match(r'What is (\d+) plus (\d+)\?', input_query)
 
     if match:
+        print("Good")
         num1 = int(match.group(1))
         num2 = int(match.group(2))
         result = num1 + num2
         return result
     
-    match1 = re.match(r'What is (\d+) multiplied by (\d+)\?', input_query)
+    # match1 = re.match(r'What is (\d+) multiplied by (\d+)\?', input_query)
 
-    if match1:
-        num1 = int(match.group(1))
-        num2 = int(match.group(2))
-        result = num1 * num2
-        return result
+    # if match1:
+    #     num1 = int(match.group(1))
+    #     num2 = int(match.group(2))
+    #     result = num1 * num2
+    #     return result
 
     # if query.startswith("Which of the following numbers is the largest"):
     #     result = find_largest_number(query)
