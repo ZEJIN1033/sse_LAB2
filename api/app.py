@@ -15,7 +15,7 @@ def submit():
     input_age = request.form.get("age")
     input_gender = request.form.get("gender")
     return render_template("hello.html", name=input_name, \
-                           age=input_age, gender=input_gender)
+age=input_age, gender=input_gender)
 
 
 @app.route("/query", methods=["GET"])
