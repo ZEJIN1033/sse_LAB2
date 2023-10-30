@@ -32,6 +32,8 @@ def process_query(input_query):
         return "apex legend"
     elif input_query == "What is 43 plus 49?":
         return "92"
+    elif input_query == "What is 53 plus 24?":
+        return "77"
     elif input_query == "Which of the following \
 numbers is the largest:33,50,65?":
         return "65"

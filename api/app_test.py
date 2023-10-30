@@ -25,3 +25,7 @@ def test_add():
 def test_compare():
     assert process_query("Which of the following numbers \
 is the largest:33,50,65?") == "65"
+
+
+def test_add1():
+    assert process_query("What is 53 plus 24?") == "77"
