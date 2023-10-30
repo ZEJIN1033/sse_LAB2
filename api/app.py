@@ -27,15 +27,21 @@ def query():
 def process_query(input_query):
     if input_query.startswith("Which of the following numbers is the largest"):
         result = find_largest_number(input_query)
-    return result
-    # if input_query.startswith("What is "):
-    #     match = re.match(r'What is (\d+) plus (\d+)\?', input_query)
+        return result
+    
+    if input_query.startswith("What is "):
+        match = re.search(r'What is (\d+) plus (\d+)\?', input_query)
 
-    # if match:
-    #     num1 = int(match.group(1))
-    #     num2 = int(match.group(2))
-    #     result = num1 + num2
-    #     return result
+        if match:
+            num1 = int(match.group(1))
+            num2 = int(match.group(2))
+            result = num1 + num2
+            return result
+
+    # result = subtract_numbers(input_query)
+    # if result is not None:
+    #     print(f"The result is: {result}")
+
 
     # match1 = re.match(r'What is (\d+) multiplied by (\d+)\?', input_query)
 
@@ -56,29 +62,7 @@ def process_query(input_query):
     # else:
     #     return "Invalid input"
 
-# def find_largest(numbers):
-#     number_list = numbers.split('.')
-#     number_list = [int(num.strip()) for num in number_list]
 
-#     if len(number_list) > 0:
-#         largest = max(number_list)
-#         return largest
-#     else:
-#         return "No numbers provided"
-
-# def find_largest_number(query):
-#     # 使用正则表达式匹配数字部分
-#     match = re.search(r'(\d+),\s*(\d+),\s*(\d+)', query)
-
-#     if match:
-#         A = int(match.group(1))
-#         B = int(match.group(2))
-#         C = int(match.group(3))
-        
-#         largest = max(A, B, C)
-#         return largest
-#     else:
-#         return "Invalid input"
 def find_largest_number(query):
     match = re.search(r'(\d+),\s*(\d+),\s*(\d+)', query)
 
@@ -91,3 +75,18 @@ def find_largest_number(query):
         return str(largest)
     else:
         return "Invalid input"
+    
+
+def subtract_numbers(query):
+    # 使用正则表达式匹配数字A和数字B
+    match = re.search(r'What is (\d+) minus (\d+)', query)
+
+    if match:
+        A = int(match.group(1))
+        B = int(match.group(2))
+
+        # 计算A - B 的值
+        result = A - B
+        return str(result)
+    else:
+        return None
