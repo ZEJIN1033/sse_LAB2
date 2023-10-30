@@ -29,7 +29,7 @@ def process_query(input_query):
         result = find_largest_number(input_query)
         return result
     
-    if input_query.startswith("What is "):
+    if "plus" in input_query:
         match = re.search(r'What is (\d+) plus (\d+)\?', input_query)
 
         if match:
@@ -38,10 +38,9 @@ def process_query(input_query):
             result = num1 + num2
             return result
 
-    # result = subtract_numbers(input_query)
-    # if result is not None:
-    #     print(f"The result is: {result}")
-
+    if "minus" in input_query:
+        result = subtract_numbers(input_query)
+        return result
 
     # match1 = re.match(r'What is (\d+) multiplied by (\d+)\?', input_query)
 
