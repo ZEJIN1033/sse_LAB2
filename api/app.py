@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request
+import re
 
 app = Flask(__name__)
 
@@ -23,22 +24,26 @@ def query():
     return process_query(input_query)
 
 
-def process_query(input_query):
-    if input_query == "dinosaurs":
-        return "Dinosaurs ruled the Earth 200 million years ago"
-    elif input_query == "asteroids":
-        return "Unknown"
-    elif input_query == "What is your name?":
+def process_query(query):
+
+    if query == "What is your name?":
         return "apex legend"
-    elif input_query == "What is 43 plus 49?":
-        return "92"
-    elif input_query == "What is 53 plus 24?":
-        return "77"
-    elif input_query == "Which of the following \
-numbers is the largest:33,50,65?":
-        return "65"
-    elif input_query == "Which of the following \
-numbers is the largest:33,50,65?":
-        return "65"
-    else:
-        return "Invalid input"
+
+
+    match = re.match(r'What is (\d+) plus (\d+)\?', query)
+    
+    if match:
+        num1 = float(match.group(1))
+        num2 = float(match.group(2))
+        result = num1 + num2
+
+    return result
+
+    # if input_query == "dinosaurs":
+    #     return "Dinosaurs ruled the Earth 200 million years ago"
+    # elif input_query == "asteroids":
+    #     return "Unknown"
+    # elif input_query == "What is your name?":
+    #     return "apex legend"
+    # else:
+    #     return "Invalid input"
