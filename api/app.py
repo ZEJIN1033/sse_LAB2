@@ -85,7 +85,7 @@ def add_numbers(query):
 
 
 def mul_numbers(query):
-    match = re.search(r'What is (\d+) multiplied (\d+)?', query)
+    match = re.search(r'What is (\d+) multiplied by (\d+)?', query)
 
     if match:
         A = int(match.group(1))
