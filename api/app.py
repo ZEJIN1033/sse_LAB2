@@ -30,13 +30,8 @@ def process_query(input_query):
         return result
     
     if "plus" in input_query:
-        match = re.search(r'What is (\d+) plus (\d+)\?', input_query)
-
-        if match:
-            num1 = int(match.group(1))
-            num2 = int(match.group(2))
-            result = num1 + num2
-            return result
+        result = add_numbers
+        return result
 
     if "minus" in input_query:
         result = subtract_numbers(input_query)
@@ -78,7 +73,7 @@ def find_largest_number(query):
 
 def subtract_numbers(query):
     # 使用正则表达式匹配数字A和数字B
-    match = re.search(r'What is (\d+) minus (\d+)', query)
+    match = re.search(r'What is (\d+) minus (\d+)?', query)
 
     if match:
         A = int(match.group(1))
@@ -86,6 +81,20 @@ def subtract_numbers(query):
 
         # 计算A - B 的值
         result = A - B
+        return str(result)
+    else:
+        return None
+    
+def add_numbers(query):
+    # 使用正则表达式匹配数字A和数字B
+    match = re.search(r'What is (\d+) plus (\d+)?', query)
+
+    if match:
+        A = int(match.group(1))
+        B = int(match.group(2))
+
+        # 计算A - B 的值
+        result = A + B
         return str(result)
     else:
         return None
