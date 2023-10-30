@@ -33,18 +33,18 @@ def process_query(input_query):
         result = num1 + num2
         return result
 
-    question, numbers = input_query.split(':')
-    if question.strip() == "Which of the following numbers is the largest":
-        return render_template("result.html", result=find_largest(numbers))
-    else:
-        return "Invalid input"
+#     question, numbers = input_query.split(':')
+#     if question.strip() == "Which of the following numbers is the largest":
+#         return render_template("result.html", result=find_largest(numbers))
+#     else:
+#         return "Invalid input"
 
-def find_largest(numbers):
-    number_list = numbers.split('.')
-    number_list = [int(num.strip()) for num in number_list]
+# def find_largest(numbers):
+#     number_list = numbers.split('.')
+#     number_list = [int(num.strip()) for num in number_list]
 
-    if len(number_list) > 0:
-        largest = max(number_list)
-        return largest
-    else:
-        return "No numbers provided"
+#     if len(number_list) > 0:
+#         largest = max(number_list)
+#         return largest
+#     else:
+#         return "No numbers provided"
