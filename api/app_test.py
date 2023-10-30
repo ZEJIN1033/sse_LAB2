@@ -1,4 +1,10 @@
-# from app import process_query
+from app import process_query
+
+
+def process_query(client):
+    response = client.get('/query?q=What is 43 plus 45?')
+    assert response.status_code == 200
+    assert b'Result: 88.0' in response.data
 
 
 # def test_knows_about_dinosaurs():
