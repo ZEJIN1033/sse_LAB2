@@ -29,9 +29,8 @@ def process_query(query):
     if query == "What is your name?":
         return "apex legend"
 
-
     match = re.match(r'What is (\d+) plus (\d+)\?', query)
-    
+
     if match:
         num1 = float(match.group(1))
         num2 = float(match.group(2))
