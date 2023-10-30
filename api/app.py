@@ -27,6 +27,13 @@ def query():
 def process_query(input_query):
     if input_query.startswith("What is your name"):
         return "superteam"
+    
+    if "dinosaurs" in input_query:
+        return "Dinosaurs ruled the Earth 200 \
+million years ago"
+
+    if "asteroids" in input_query:
+        return "Unknown"
 
     if input_query.startswith("Which of the following numbers is the largest"):
         result = find_largest_number(input_query)
@@ -47,6 +54,7 @@ def process_query(input_query):
     if input_query.startswith("Which of the following numbers are primes"):
         result = find_primes(input_query)
         return result
+
 
 
 def find_largest_number(query):
