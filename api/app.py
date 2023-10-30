@@ -14,7 +14,8 @@ def submit():
     input_name = request.form.get("name")
     input_age = request.form.get("age")
     input_gender = request.form.get("gender")
-    return render_template("hello.html", name=input_name, age=input_age, gender=input_gender)
+    return render_template("hello.html", name=input_name, \
+                           age=input_age, gender=input_gender)
 
 
 @app.route("/query", methods=["GET"])
@@ -111,7 +112,8 @@ def is_prime(number):
 
 
 def find_primes(query):
-    match = re.search(r'Which of the following numbers are primes: (.+)', query)
+    match = re.search(r'Which of the following \
+numbers are primes: (.+)', query)
     if match:
         numbers_part = match.group(1)
         numbers = [int(num) for num in re.findall(r'\d+', numbers_part)]
