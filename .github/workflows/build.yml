@@ -33,23 +33,23 @@ jobs:
       - name: Chck ordering of imports with isort
         run: isort --check --diff .
   
-  # pytest-check:
-  #   needs: isort-check
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Checkout
-  #       uses: actions/checkout@v3
+  pytest-check:
+    needs: isort-check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
 
-  #     - name: Setup Python
-  #       uses: actions/setup-python@v4
-  #       with:
-  #         python-version: 3.9
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.9
 
-  #     - name: Install requirements
-  #       run: pip install -r requirements.txt
+      - name: Install requirements
+        run: pip install -r requirements.txt
 
-  #     - name: Run Pytest
-  #       run: pytest api/*.py
+      - name: Run Pytest
+        run: pytest api/*.py
 
   deploy-to-vercel:
     needs: pytest-check
