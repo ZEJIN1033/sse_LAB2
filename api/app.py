@@ -31,7 +31,7 @@ def process_query(input_query):
         num1 = float(match.group(1))
         num2 = float(match.group(2))
         result = num1 + num2
-        return render_template("result.html", result=result)
+        return result
 
     question, numbers = input_query.split(':')
     if question.strip() == "Which of the following numbers is the largest":
