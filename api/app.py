@@ -19,6 +19,12 @@ def submit():
                            gender=input_gender)
 
 
+@app.route("/get_username", methods=["POST"])
+def submit():
+    input_name = request.form.get("username")
+    return render_template("username_hello.html", username=input_name)
+
+
 @app.route("/query", methods=["GET"])
 def query():
     input_query = request.args.get("q")
@@ -127,3 +133,7 @@ numbers are primes: (.+)?', query)
         numbers = [int(num) for num in re.findall(r'\d+', numbers_part)]
         prime_numbers = [num for num in numbers if is_prime(num)]
         return str(prime_numbers)
+
+
+if __name__ == '__main__':
+    app.run(debug=True)
