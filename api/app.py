@@ -19,10 +19,15 @@ def submit():
                            gender=input_gender)
 
 
-@app.route("/get_username", methods=["POST"])
-def submit():
-    input_name = request.form.get("username")
-    return render_template("username_hello.html", username=input_name)
+@app.route("/get_username", methods=["GET"])
+def get_username():
+    return render_template("get_gitname.html")
+
+
+@app.route("/get_username/result", methods=["POST"])
+def submit_username():
+    input_username = request.form.get("username")
+    return render_template("username_hello.html", username=input_username)
 
 
 @app.route("/query", methods=["GET"])
