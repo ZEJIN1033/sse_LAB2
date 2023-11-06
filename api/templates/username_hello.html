@@ -1,3 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ username }}'s GitHub Repositories</title>
+</head>
 <body>
-    <h1>Hello {{ username }}!</h1>
+    <h1>Hello {{ username }}</h1>
+
+    {% if repositories %}
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>Author Name</th>
+                    <th>Updated date</th>
+                    <th>Commit message</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for repo in repositories %}
+                    <tr>
+                        <td>{{ repos_list.name }}</td>
+                        <td>{{ repos_list.date }}</td>
+                        <td>{{ repos_list.message }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No repositories found for user {{ username }}.</p>
+    {% endif %}
 </body>
+</html>

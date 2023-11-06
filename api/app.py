@@ -1,4 +1,5 @@
 import re
+import requests
 
 from flask import Flask, render_template, request
 
@@ -27,7 +28,86 @@ def get_username():
 @app.route("/get_username/result", methods=["POST"])
 def submit_username():
     input_username = request.form.get("username")
-    return render_template("username_hello.html", username=input_username)
+    response = requests.get(
+        f"https://api.github.com/users/{input_username}/repos"
+    )
+    if response.status_code == 200:
+        repos = response.json()
+        repos_data = []
+        for repo in repos:
+            commits_url = repo[]
+        for data in repos:
+            data_list = {
+                'author' : data['commit']['author']['name'],
+                'message' : data['commit']['message'],
+                'time' : data['commit']['author']['date']
+            }
+            repos_list.append(data_list)
+        return render_template(
+            "username_hello.html",
+            username=input_username,
+            repositories=repos_list)
+    else:
+        error_message = (
+            f"Error exist when getting the data from {input_username} repos"
+        )
+        return render_template(
+            "username_hello.html",
+            username=input_username,
+            error=error_message)
+
+
+
+
+
+@app.route("/get_username/result", methods=["POST"])
+def submit_username():
+    input_username = request.form.get("username")
+    repos_response = requests.get(f"https://api.github.com/users/{input_username}/repos")
+    if repos_response.status_code == 200:
+        repos = repos_response.json()
+        repos_data = []
+        for repo in repos:
+            commits_url = repo['commits_url'].split('{')[0]  # Remove the {/sha} part from the URL
+            commits_response = requests.get(commits_url)
+            if commits_response.status_code == 200:
+                commits = commits_response.json()
+                if commits:  # Check if there is at least one commit
+                    latest_commit = commits[0]  # Get the latest commit
+                    commit_data = {
+                        'author': latest_commit['commit']['author']['name'],
+                        'message': latest_commit['commit']['message'],
+                        'date': latest_commit['commit']['author']['date']
+                    }
+                    repos_data.append(commit_data)
+                else:
+                    repos_data.append({'author': None, 'message': None, 'date': None})
+        return render_template("username_hello.html", username=input_username, repositories=repos_data)
+    else:
+        error_message = f"Error fetching repositories for user {input_username}"
+        return render_template("username_hello.html", username=input_username, error=error_message)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 @app.route("/query", methods=["GET"])
