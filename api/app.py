@@ -16,8 +16,11 @@ def submit():
     input_name = request.form.get("name")
     input_age = request.form.get("age")
     input_gender = request.form.get("gender")
-    return render_template("hello.html", name=input_name, age=input_age,
-                           gender=input_gender)
+    return render_template(
+        "hello.html",
+        name=input_name,
+        age=input_age,
+        gender=input_gender)
 
 
 @app.route("/get_username", methods=["GET"])
@@ -28,28 +31,27 @@ def get_username():
 @app.route("/get_username/result", methods=["POST"])
 def submit_username():
     input_username = request.form.get("username")
-    response = requests.get(
+    repos_response = requests.get(
         f"https://api.github.com/users/{input_username}/repos"
     )
-    if response.status_code == 200:
-        repos = response.json()
-        repos_data = []
+    if repos_response.status_code == 200:
+        repos = repos_response.json()
+        all_repos_data = []
         for repo in repos:
-            commits_url = repo[]
-        for data in repos:
-            data_list = {
-                'author' : data['commit']['author']['name'],
-                'message' : data['commit']['message'],
-                'time' : data['commit']['author']['date']
+            repo_data = {
+                'name': repo['name'],
+                'commits': [get_commit_data(repo)],
+                'contents': get_content_data(repo)
             }
-            repos_list.append(data_list)
+            all_repos_data.append(repo_data)
+
         return render_template(
             "username_hello.html",
             username=input_username,
-            repositories=repos_list)
+            all_repos_data=all_repos_data)
     else:
         error_message = (
-            f"Error exist when getting the data from {input_username} repos"
+            f"Error fetching repositories for user {input_username}"
         )
         return render_template(
             "username_hello.html",
@@ -57,57 +59,39 @@ def submit_username():
             error=error_message)
 
 
-
-
-
-@app.route("/get_username/result", methods=["POST"])
-def submit_username():
-    input_username = request.form.get("username")
-    repos_response = requests.get(f"https://api.github.com/users/{input_username}/repos")
-    if repos_response.status_code == 200:
-        repos = repos_response.json()
-        repos_data = []
-        for repo in repos:
-            commits_url = repo['commits_url'].split('{')[0]  # Remove the {/sha} part from the URL
-            commits_response = requests.get(commits_url)
-            if commits_response.status_code == 200:
-                commits = commits_response.json()
-                if commits:  # Check if there is at least one commit
-                    latest_commit = commits[0]  # Get the latest commit
-                    commit_data = {
-                        'author': latest_commit['commit']['author']['name'],
-                        'message': latest_commit['commit']['message'],
-                        'date': latest_commit['commit']['author']['date']
-                    }
-                    repos_data.append(commit_data)
-                else:
-                    repos_data.append({'author': None, 'message': None, 'date': None})
-        return render_template("username_hello.html", username=input_username, repositories=repos_data)
+def get_commit_data(repo):
+    commits_url = repo['commits_url'].split('{')[0]
+    commits_response = requests.get(commits_url)
+    if commits_response.status_code == 200:
+        commits = commits_response.json()
+        lastest_commit = commits[0]
+        return {
+            'sha': lastest_commit['sha'],
+            'author': lastest_commit['commit']['author']['name'],
+            'message': lastest_commit['commit']['message'],
+            'date': lastest_commit['commit']['author']['date']
+        }
     else:
-        error_message = f"Error fetching repositories for user {input_username}"
-        return render_template("username_hello.html", username=input_username, error=error_message)
+        return []
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+def get_content_data(repo):
+    content_url = repo['contents_url'].split('{')[0]
+    content_response = requests.get(content_url)
+    if content_response.status_code == 200:
+        contents = content_response.json()
+        files_data = []
+        for content in contents:
+            if content['type'] == 'file':
+                file_data = {
+                    'sha': content['sha'],
+                    'file_name': content['name'],
+                    'url': content['download_url']
+                }
+                files_data.append(file_data)
+        return files_data
+    else:
+        return []
 
 
 @app.route("/query", methods=["GET"])
