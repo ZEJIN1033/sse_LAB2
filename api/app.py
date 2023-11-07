@@ -23,6 +23,60 @@ def submit():
         gender=input_gender)
 
 
+@app.route("/get_username_all", methods=["GET"])
+def get_username_all():
+    return render_template("get_gitname_all.html")
+
+
+@app.route("/get_username_all/result", methods=["POST"])
+def submit_username_all():
+    input_username = request.form.get("username")
+    repos_response = requests.get(
+        f"https://api.github.com/users/{input_username}/repos"
+    )
+    if repos_response.status_code == 200:
+        repos = repos_response.json()
+        all_repos_data = []
+        for repo in repos:
+            repo_data = {
+                'name': repo['name'],
+                'commits': get_all_commit_data(repo)
+            }
+            all_repos_data.append(repo_data)
+
+        return render_template(
+            "username_hello_all.html",
+            username=input_username,
+            all_repos_data=all_repos_data)
+    else:
+        error_message = (
+            f"Error fetching repositories for user {input_username}"
+        )
+        return render_template(
+            "username_hello_all.html",
+            username=input_username,
+            error=error_message)
+
+
+def get_all_commit_data(repo):
+    commits_url = repo['commits_url'].split('{')[0]
+    commits_response = requests.get(commits_url)
+    commits_data = []
+    if commits_response.status_code == 200:
+        commits = commits_response.json()
+        for commit in commits:
+            commit_data = {
+                'sha': commit['sha'],
+                'author': commit['commit']['author']['name'],
+                'message': commit['commit']['message'],
+                'date': commit['commit']['author']['date']
+            }
+            commits_data.append(commit_data)
+        return commits_data
+    else:
+        return []
+
+
 @app.route("/get_username", methods=["GET"])
 def get_username():
     return render_template("get_gitname.html")
