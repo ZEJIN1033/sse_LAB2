@@ -51,14 +51,37 @@
     input[type="submit"]:hover {
       background-color: #0056b3;
     }
+
+    .nav-link {
+    text-decoration: none;
+    color: #007BFF;
+    font-weight: bold;
+    padding: 8px 16px;
+    background-color: #fff;
+    border: 1px solid #007BFF;
+    border-radius: 5px;
+    display: inline-block;
+    margin-top: 10px;
+    transition: background-color 0.3s, color 0.3s;
+    }
+
+    .nav-link:hover {
+    background-color: #007BFF;
+    color: #fff;
+    }
   </style>
 </head>
 <body>
-  <form action="/get_username/result" method="post">
-    <label for="namefield">GitHub username:</label>
-    <input type="text" id="namefield" name="username" placeholder="Username">
-    <br>
-    <input type="submit" value="Submit">
-  </form>
+  <div class="container">
+    <form action="/get_username/result" method="post">
+      <label for="namefield">GitHub username:</label>
+      <input type="text" id="namefield" name="username" placeholder="Username">
+      <br>
+      <input type="submit" value="Submit">
+    </form>
+  
+    <a href="/get_username_all" class="nav-link">More details about commit</a>
+  </div>
+  
 </body>
 </html>
