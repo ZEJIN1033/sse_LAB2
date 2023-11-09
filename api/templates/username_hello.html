@@ -94,6 +94,26 @@
                     {% endfor %}
                 </tbody>
             </table>
+
+            <button class="show-more-button" data-repo="{{ repo.name }}">Show More</button>
+            {% endfor %}
+        
+            <script>
+                document.addEventListener("click", function(e) {
+                    if (e.target.classList.contains("show-more-button")) {
+                        const repoName = e.target.getAttribute("data-repo");
+                        showMoreCommits(repoName);
+                    }
+                });
+        
+                function showMoreCommits(repoName) {
+                    const repoTable = document.querySelector(`table[data-repo="${repoName}"]`);
+                    const commits = repoTable.querySelectorAll("tr.commit");
+                    for (let i = 5; i < commits.length; i++) {
+                        commits[i].style.display = "table-row";
+                    }
+                }
+            </script>
         {% endfor %}
     </div>
 </body>
